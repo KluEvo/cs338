@@ -1,7 +1,13 @@
 import spacy
 import requests
 from bs4 import BeautifulSoup
+from google_search_api.google_search_api import GoogleSearchAPI
 
+# pip install google-opensearch-api
+# pip install spacy
+# pip install bs4
+
+# python -m spacy download en_core_web_sm
 
 
 # Load the English language model
@@ -21,7 +27,6 @@ sentence = "John and Mary went to the market with their friend Bob."
 print(extract_names(sentence))
 
 
-from google_search_api.google_search_api import GoogleSearchAPI
 
 
 # Example usage
