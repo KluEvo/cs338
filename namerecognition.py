@@ -18,7 +18,7 @@ def extract_names(sentence):
 
 # Example usage
 sentence = "John and Mary went to the market with their friend Bob."
-# print(extract_names(sentence))
+print(extract_names(sentence))
 
 
 from google_search_api.google_search_api import GoogleSearchAPI
