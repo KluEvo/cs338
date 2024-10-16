@@ -23,7 +23,8 @@ def extract_names(sentence):
     return names
 
 # Example usage
-sentence = "John and Mary went to the market with their friend Bob."
+sentence = input("Enter a sentence abount 2 characters: ")
+
 print(extract_names(sentence))
 
 
@@ -39,4 +40,4 @@ num_results = 10
 search_results = google_search_api.google_search(query, num_results)
 
 # Print search results in JSON format
-print(search_results)
+# print(search_results)
