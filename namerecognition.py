@@ -31,13 +31,13 @@ def extract_names(sentence):
 
 
 # Example usage
-scenario = "person" + "is late for class"
-google_search_api = GoogleSearchAPI()
+# scenario = "person" + "is late for class"
+# google_search_api = GoogleSearchAPI()
 
-# Perform a Google search
-query = "reasons why " + scenario
-num_results = 10
-search_results = google_search_api.google_search(query, num_results)
+# # Perform a Google search
+# query = "reasons why " + scenario
+# num_results = 10
+# search_results = google_search_api.google_search(query, num_results)
 
 # Print search results in JSON format
 # print(search_results)
