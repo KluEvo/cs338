@@ -23,9 +23,9 @@ def extract_names(sentence):
     return names
 
 # Example usage
-sentence = input("Enter a sentence abount 2 characters: ")
+# sentence = input("Enter a sentence abount 2 characters: ")
 
-print(extract_names(sentence))
+# print(extract_names(sentence))
 
 
 
