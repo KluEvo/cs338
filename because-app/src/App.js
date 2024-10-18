@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+
+import axios from 'axios';
 
 function App() {
   // State variables for the inputs
@@ -7,10 +9,11 @@ function App() {
   const [context, setContext] = useState('');
 
   // Function to handle the button click
-  const handleGeneratePlot = () => {
+  const handleGeneratePlot = () => { 
     // Here you can implement the logic to generate the plot
     console.log('Prompt:', prompt);
     console.log('Context:', context);
+    getChars(prompt)
     // You can also clear the inputs after generating
     setPrompt('');
     setContext('');
@@ -49,14 +52,12 @@ function App() {
 }
 
 
-import axios from 'axios';
-
 async function getChars(charInfo) {
     try {
-        const response = await axios.post('/characters', {
+        const response = await axios.post('http://localhost:5000/characters', {
             charInfo,
         });
-        dat = response.data
+        let dat = response.data
         console.log(response.data);
         // Save the token to local storage
         localStorage.setItem('chars', dat);
