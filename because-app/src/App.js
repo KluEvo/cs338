@@ -48,4 +48,22 @@ function App() {
   );
 }
 
+
+import axios from 'axios';
+
+async function getChars(charInfo) {
+    try {
+        const response = await axios.post('/characters', {
+            charInfo,
+        });
+        dat = response.data
+        console.log(response.data);
+        // Save the token to local storage
+        localStorage.setItem('chars', dat);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
 export default App;
