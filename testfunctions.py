@@ -6,6 +6,7 @@ import random
 import time
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/characters', methods=['POST'])
