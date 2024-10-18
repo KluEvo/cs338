@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
   // State variables for the inputs
-  const [prompt, setPrompt] = useState('');
-  const [context, setContext] = useState('');
+  const [prompt, setPrompt] = useState("");
+  const [context, setContext] = useState("");
 
   // Function to handle the button click
   const handleGeneratePlot = () => {
     // Here you can implement the logic to generate the plot
-    console.log('Prompt:', prompt);
-    console.log('Context:', context);
+    console.log("Prompt:", prompt);
+    console.log("Context:", context);
     // You can also clear the inputs after generating
-    setPrompt('');
-    setContext('');
+    setPrompt("");
+    setContext("");
   };
 
   return (
@@ -31,7 +31,7 @@ function App() {
             />
           </label>
         </div>
-        <div>
+        {/* <div>
           <label>
             Context:
             <input
@@ -41,7 +41,7 @@ function App() {
               placeholder="Enter your context here"
             />
           </label>
-        </div>
+        </div> */}
         <button onClick={handleGeneratePlot}>Generate Plot</button>
       </header>
     </div>
