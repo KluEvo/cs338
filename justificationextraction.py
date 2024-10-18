@@ -2,10 +2,10 @@ from mistralai import Mistral
 import re
 from transformers import pipeline
 import random
-
+from api_key import getApiKey
 import time
 
-api_key = "COPY THIS FROM ELSEWHERE"
+api_key = getApiKey()
 
 model = "open-mistral-7b"
 client = Mistral(api_key=api_key)
