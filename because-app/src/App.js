@@ -1,8 +1,6 @@
-
-import React, { useEffect, useState } from 'react';
-import './App.css';
-
-import axios from 'axios';
+import React, { useState } from "react";
+import "./App.css";
+import axios from "axios";
 
 function App() {
   // State variables for the inputs
@@ -58,7 +56,7 @@ async function getChars(charInfo) {
         const response = await axios.post('http://localhost:5000/characters', {
             charInfo,
         });
-        let dat = response.data
+        const dat = response.data
         console.log(response.data);
         // Save the token to local storage
         localStorage.setItem('chars', dat);
@@ -66,6 +64,5 @@ async function getChars(charInfo) {
         console.error(error);
     }
 }
-
 
 export default App;
