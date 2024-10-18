@@ -8,11 +8,11 @@ function App() {
   const [context, setContext] = useState("");
 
   // Function to handle the button click
-  const handleGeneratePlot = () => { 
+  const handleGeneratePlot = () => {
     // Here you can implement the logic to generate the plot
-    console.log('Prompt:', prompt);
-    console.log('Context:', context);
-    getChars(prompt)
+    console.log("Prompt:", prompt);
+    console.log("Context:", context);
+    getChars(prompt);
     // You can also clear the inputs after generating
     setPrompt("");
     setContext("");
@@ -50,19 +50,18 @@ function App() {
   );
 }
 
-
 async function getChars(charInfo) {
-    try {
-        const response = await axios.post('http://localhost:5000/characters', {
-            charInfo,
-        });
-        const dat = response.data
-        console.log(response.data);
-        // Save the token to local storage
-        localStorage.setItem('chars', dat);
-    } catch (error) {
-        console.error(error);
-    }
+  try {
+    const response = await axios.post("http://localhost:5000/characters", {
+      charInfo,
+    });
+    const dat = response.data;
+    console.log(response.data);
+    // Save the token to local storage
+    localStorage.setItem("chars", dat);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export default App;
