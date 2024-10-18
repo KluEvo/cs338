@@ -1,22 +1,48 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  // State variables for the inputs
+  const [prompt, setPrompt] = useState('');
+  const [context, setContext] = useState('');
+
+  // Function to handle the button click
+  const handleGeneratePlot = () => {
+    // Here you can implement the logic to generate the plot
+    console.log('Prompt:', prompt);
+    console.log('Context:', context);
+    // You can also clear the inputs after generating
+    setPrompt('');
+    setContext('');
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>NuScript</h1>
+        <div>
+          <label>
+            Prompt:
+            <input
+              type="text"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              placeholder="Enter your prompt here"
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Context:
+            <input
+              type="text"
+              value={context}
+              onChange={(e) => setContext(e.target.value)}
+              placeholder="Enter your context here"
+            />
+          </label>
+        </div>
+        <button onClick={handleGeneratePlot}>Generate Plot</button>
       </header>
     </div>
   );
