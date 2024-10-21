@@ -89,7 +89,7 @@ async function getChars(charInfo, promptInfo) {
     // Save the token to local storage
     localStorage.setItem("chars", dat[0]);
     localStorage.setItem("sentences", dat[1]);
-    alert(localStorage.getItem("sentences")[-1]);
+    alert(localStorage.getItem("sentences"));
 
   } catch (error) {
     console.error(error);
