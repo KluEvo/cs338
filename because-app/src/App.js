@@ -6,32 +6,55 @@ function App() {
   // State variables for the inputs
   const [prompt, setPrompt] = useState("");
   const [context, setContext] = useState("");
+  const [character, setCharacter] = useState("");
+  const [goal, setGoal] = useState("");
+
 
   // Function to handle the button click
   const handleGeneratePlot = () => {
     // Here you can implement the logic to generate the plot
     console.log("Prompt:", prompt);
     console.log("Context:", context);
+    console.log("Context:", character);
+    console.log("Context:", goal);
+
+
     getChars(prompt);
+    getChars(character);
+    getChars(goal);
     // You can also clear the inputs after generating
     setPrompt("");
     setContext("");
+    setCharacter("");
+    setGoal("");
+
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>NuScript</h1>
-        <div>
-          <label>
-            Prompt:
-            <input
-              type="text"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Enter your prompt here"
-            />
-          </label>
+        <div className="input-container">
+          <div>
+            <label>
+              Prompt:
+              <input
+                type="text"
+                value={character}
+                onChange={(e) => setCharacter(e.target.value)}
+                placeholder="Enter character name(s)"
+              />
+            </label>
+          </div>
+
+          <div>
+              <input
+                type="text"
+                value={goal}
+                onChange={(e) => setGoal(e.target.value)}
+                placeholder="Enter the end goal"
+              />
+          </div>
         </div>
         {/* <div>
           <label>
