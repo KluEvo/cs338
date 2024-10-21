@@ -12,17 +12,15 @@ function App() {
 
   // Function to handle the button click
   const handleGeneratePlot = () => {
-    // Here you can implement the logic to generate the plot
     console.log("Prompt:", prompt);
     console.log("Context:", context);
     console.log("Context:", character);
     console.log("Context:", goal);
 
 
-    getChars(prompt);
-    getChars(character);
-    getChars(goal);
-    // You can also clear the inputs after generating
+    // getChars(prompt);
+    getChars(character, goal);
+    // Clear the inputs after generating
     setPrompt("");
     setContext("");
     setCharacter("");
@@ -73,15 +71,26 @@ function App() {
   );
 }
 
-async function getChars(charInfo) {
+// will be needed later to allow for multi-generation history
+function appendToStorage(name, data){
+    var old = localStorage.getItem(name);
+    if(old === null) old = "";
+    localStorage.setItem(name, old + data);
+}
+
+async function getChars(charInfo, promptInfo) {
   try {
     const response = await axios.post("http://localhost:5000/characters", {
       charInfo,
+      promptInfo,
     });
     const dat = response.data;
     console.log(response.data);
     // Save the token to local storage
-    localStorage.setItem("chars", dat);
+    localStorage.setItem("chars", dat[0]);
+    localStorage.setItem("sentences", dat[1]);
+    alert(localStorage.getItem("sentences")[-1]);
+
   } catch (error) {
     console.error(error);
   }
