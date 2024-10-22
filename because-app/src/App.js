@@ -40,7 +40,7 @@ function App() {
                 type="text"
                 value={character}
                 onChange={(e) => setCharacter(e.target.value)}
-                placeholder="Enter character name(s)"
+                placeholder="Main character name"
               />
             </label>
           </div>
@@ -65,6 +65,7 @@ function App() {
             />
           </label>
         </div> */}
+        <br/>
         <button onClick={handleGeneratePlot}>Generate Plot</button>
       </header>
     </div>
@@ -78,7 +79,8 @@ function appendToStorage(name, data){
     localStorage.setItem(name, old + data);
 }
 
-async function getChars(charInfo, promptInfo) {
+async function getChars(charInfo = "Jane", promptInfo = "was late to school") {
+
   try {
     const response = await axios.post("http://localhost:5000/characters", {
       charInfo,

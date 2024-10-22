@@ -4,7 +4,6 @@ from justificationextraction import generateReasons, extractReasons, generateSen
 from namerecognition import extract_names
 import random
 import time
-from flask_cors import CORS
  
 app = Flask(__name__)
 cors = CORS(app) 
@@ -13,8 +12,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 def parsePrompt(prompt):
-    
-    
     return prompt
 
 @app.route('/characters', methods=['POST'])
