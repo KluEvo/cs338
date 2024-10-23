@@ -68,7 +68,7 @@ def generateSentence(reason, resultant, actor):
     model, client = getMistralInfo()
     chat_response = client.chat.complete(
         model=model,
-        messages=[{"role":"user", "content":f"give a short, 1 sentence, silly description of {prompt}. No need to do a conclusion or be too verbose"}]
+        messages=[{"role":"user", "content":f"give a short, 1 sentence, silly description of {prompt}. No need to do a conclusion or be too verbose. Include {actor[0]}'s name."}]
     )
     info = chat_response.choices[0].message.content
     # print(chat_response.choices[0].message.content)
