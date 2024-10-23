@@ -7,7 +7,7 @@ export const PromptForm = () => {
   const [context, setContext] = useState("");
   const [character, setCharacter] = useState("");
   const [goal, setGoal] = useState("");
-  const [buttonText] = useState("Send");
+  const [buttonText] = useState("Generate Plot");
 
   const handleGeneratePlot = () => {
     if (prompt && character && goal) {

@@ -18,4 +18,4 @@ reportWebVitals();
 
 var cors = require("cors");
 
-App.use(cors()); // Use this after the variable declaration
+// App.use(cors()); // Use this after the variable declaration
