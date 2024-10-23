@@ -17,33 +17,46 @@ export const PromptForm = () => {
       console.log("Character:", character);
       console.log("Goal:", goal);
 
-      async function getChars(charInfo) {
+      async function getChars(
+        charInfo = "Jane",
+        promptInfo = "was late to school"
+      ) {
         try {
           const response = await axios.post(
             "http://localhost:5000/characters",
             {
               charInfo,
+              promptInfo,
             }
           );
           const dat = response.data;
           console.log(response.data);
-          localStorage.setItem("chars", dat);
+          // Save the token to local storage
+          localStorage.setItem("chars", dat[0]);
+          localStorage.setItem("sentences", dat[1]);
+          alert(localStorage.getItem("sentences"));
         } catch (error) {
           console.error(error);
         }
       }
 
-      getChars(prompt);
-      getChars(character);
-      getChars(goal);
+      // getChars(prompt);
+      getChars(character, goal);
 
+      // Clear the inputs after generating
       setPrompt("");
       setContext("");
       setCharacter("");
       setGoal("");
-    } else {
-      console.warn("One or more fields are empty.");
+
+      // getChars(prompt);
+      // getChars(character);
+      // getChars(goal);
     }
+
+    // else {
+    //   console.warn("One or more fields are empty.");
+    // }
   };
 
   return (
