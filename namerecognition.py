@@ -13,19 +13,26 @@ from google_search_api.google_search_api import GoogleSearchAPI
 # Load the English language model
 nlp = spacy.load("en_core_web_sm")
 
+
+
 def extract_names(sentence):
     # Process the sentence using the language model
     doc = nlp(sentence)
 
-    # Extract names (proper nouns) from the sentence
-    names = [ent.text for ent in doc.ents if ent.label_ == "PERSON"]
+    names_dict = {}
+    person_count = 1
 
-    return names
+    # Extract names (proper nouns) from the sentence
+    for ent in doc.ents:
+        if ent.label_ == "PERSON":
+            names_dict[f"person {person_count}"] = ent.text
+            person_count+=1
+    return names_dict
 
 # Example usage
-# sentence = input("Enter a sentence abount 2 characters: ")
+sentence = input("Enter a sentence abount 2 characters: ")
 
-# print(extract_names(sentence))
+print(extract_names(sentence))
 
 
 
