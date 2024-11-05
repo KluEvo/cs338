@@ -51,7 +51,7 @@ for line in lines:
                 
     elif getType(line) == "Context":
         print(line)
-        context = line
+        context += line
         continue
     elif getType(line) == "Outcome":
         if line[0].lower() == 'a' or line[0].lower() == '1':
@@ -72,5 +72,9 @@ for line in lines:
             beats.append(beat)
             options = []
             context = ""
+    else:
+        if not options:
+            beat = generate_story_beats(context, context)
+            beats.append(beat)
 
 print(beats)

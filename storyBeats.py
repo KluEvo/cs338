@@ -35,11 +35,12 @@ def identify_story_structure(starting_state, ending_state):
 
 def generate_story_beats(sentence, context):
     if sentence.strip():
-        print("waiting")
-        time.sleep(2)
-        prompt = f"Generate a short, casually written 1 sentence example scenario of the following part of the plot structure: '{sentence}', given the context of {context}"
+        # print("waiting")
+        time.sleep(1)
+        prompt = f"Generate a very brief, casually written 1 sentence example scenario of the following part of the plot structure: '{sentence}', given the context of {context}"
         beat = call_llm_api(prompt)
         
+        time.sleep(1)
         return beat
 
 def export_beats_to_files(beats, output_dir="story_beats"):
@@ -88,4 +89,4 @@ def main():
 
 if __name__ == "__main__":
     # main()
-    print(generate_story_beats("Amy and John’s rivalry becomes public when they have a spat during an important event or meeting, causing their boss or friends to impose “team-building” exercises on them", "John and Amy start to see each other’s strengths—John realizes Amy’s meticulous attention to detail, and Amy notices John’s creativity"))
+    print(generate_story_beats("John overhears Amy saying something surprisingly complimentary about him, which he misinterprets as sarcasm, leading to a funny, escalating misunderstanding that ends with both of them laughing (or maybe shouting) and admitting there’s something more between them", "John overhears Amy saying something surprisingly complimentary about him, which he misinterprets as sarcasm, leading to a funny, escalating misunderstanding that ends with both of them laughing (or maybe shouting) and admitting there’s something more between them"))
