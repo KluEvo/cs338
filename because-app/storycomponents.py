@@ -4,7 +4,7 @@ def identify_story_component(line):
     # Pattern definitions
     heading_pattern = re.compile(r"\b[IVXLCDM]+\b")  # Checks for Roman numeral anywhere in the line
     context_pattern = re.compile(r"\*")  # Checks for * anywhere in the line
-    outcome_pattern = re.compile(r"^(a|b|1|2)\.")  # Checks if line starts with a., b., 1., or 2.
+    outcome_pattern = re.compile(r"^(A|B|1|2)\.")  # Checks if line starts with a., b., 1., or 2.
     
     # Check and return the type based on the pattern match
     if heading_pattern.search(line):
