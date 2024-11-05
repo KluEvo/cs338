@@ -1,4 +1,4 @@
-from justificationextraction import generateReasons, extractReasons, generateSentence
+from JustificationExtraction import generateReasons, extractReasons, generateSentence
 from namerecognition import extract_names
 import random
 import time
@@ -17,7 +17,8 @@ Selections:
         choice = int(resultantChoice)
         resultant = options[choice]
         agentsInf = input("character info: ")
-        agents = extract_names(agentsInf) 
+        agentsDict = extract_names(agentsInf) 
+        agents = list(agentsDict.values())
         print(f"list of agents: {agents}")
         info = generateReasons(resultant)
         reasonsList = extractReasons(info)
