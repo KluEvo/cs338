@@ -10,7 +10,7 @@ export const PromptForm = () => {
   const [buttonText] = useState("Generate Plot");
 
   const handleGeneratePlot = () => {
-    if (prompt && character && goal) {
+    if (prompt) {
       // Guard against empty inputs
       console.log("Prompt:", prompt);
       console.log("Context:", context);

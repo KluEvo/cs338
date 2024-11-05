@@ -62,8 +62,11 @@ def extractReasons(info):
     return reasonsList
 
 # Generate a sentence using GPT-2
-def generateSentence(reason, resultant, actor):
-    prompt = f"{actor} {resultant} because {reason}."
+def generateSentence(reason, resultant, actors):
+    if actors.len() >1:
+        prompt = f"{', '.join(actors[:-1])}, and {actors[-1]} {resultant} because {reason}" 
+    else:
+        prompt = f"{actor} {resultant} because {reason}."
     
     model, client = getMistralInfo()
     chat_response = client.chat.complete(

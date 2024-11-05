@@ -7,11 +7,11 @@ from google_search_api.google_search_api import GoogleSearchAPI
 # pip install spacy
 # pip install bs4
 
-# python -m spacy download en_core_web_sm
+# python3 -m spacy download en_core_web_lg
 
 
 # Load the English language model
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_lg")
 
 
 
@@ -33,7 +33,6 @@ def extract_names(sentence):
 sentence = input("Enter a sentence abount 2 characters: ")
 
 print(extract_names(sentence))
-
 
 
 
