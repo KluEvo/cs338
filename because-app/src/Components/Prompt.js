@@ -3,51 +3,40 @@ import "../App.css";
 import axios from "axios";
 
 export const PromptForm = () => {
-  const [prompt, setPrompt] = useState("");
-  const [context, setContext] = useState("");
-  const [character, setCharacter] = useState("");
-  const [goal, setGoal] = useState("");
+  const [startState, setStartState] = useState("");
+  const [endState, setEndState] = useState("");
+  const [storyBeat, setStoryBeat] = useState(null);
   const [buttonText] = useState("Generate Plot");
 
-  const handleGeneratePlot = () => {
-    if (prompt) {
-      // Guard against empty inputs
-      console.log("Prompt:", prompt);
-      console.log("Context:", context);
-      console.log("Character:", character);
-      console.log("Goal:", goal);
+  const handleGeneratePlot = async () => {
+    if (startState && endState) {
+      try {
+        const response = await axios.post("http://localhost:5000/characters", {
+          starting_state: startState,
+          ending_state: endState,
+        });
 
-      async function getChars(
-        charInfo = "Jane",
-        promptInfo = "was late to school"
-      ) {
-        try {
-          const response = await axios.post(
-            "http://localhost:5000/characters",
-            {
-              charInfo,
-              promptInfo,
-            }
-          );
-          const dat = response.data;
-          console.log(response.data);
-          // Save the token to local storage
-          localStorage.setItem("chars", dat[0]);
-          localStorage.setItem("sentences", dat[1]);
-          alert(localStorage.getItem("sentences"));
-        } catch (error) {
-          console.error(error);
-        }
+        setStoryBeat(response.data.structure);
+      } catch (error) {
+        console.error("Error generating plot structure: ", error);
       }
 
-      // getChars(prompt);
-      getChars(character, goal);
+      setStartState("");
+      setEndState("");
+    }
+  };
 
-      // Clear the inputs after generating
-      setPrompt("");
-      setContext("");
-      setCharacter("");
-      setGoal("");
+  const handleChoice = async (choice) => {
+    try {
+      const response = await axios.post("http://localhost:5000/characters", {
+        choice,
+      });
+
+      //AS I HAVE IT NOW THIS HAS TO BE GIVE AS A JSON FILE.
+
+      setStoryBeat(response.data);
+    } catch (error) {
+      console.error("Error continuing story: ", error);
     }
   };
 
@@ -66,9 +55,9 @@ export const PromptForm = () => {
             </label>
             <input
               type="text"
-              value={character}
+              value={startState}
               placeholder="Starting Point"
-              onChange={(e) => setCharacter(e.target.value)}
+              onChange={(e) => setStartState(e.target.value)}
               className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -80,9 +69,9 @@ export const PromptForm = () => {
             </label>
             <input
               type="text"
-              value={goal}
+              value={endState}
               placeholder="Ending point"
-              onChange={(e) => setGoal(e.target.value)}
+              onChange={(e) => setEndState(e.target.value)}
               className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -94,6 +83,20 @@ export const PromptForm = () => {
             <span>{buttonText}</span>
           </button>
         </form>
+
+        {/* THIS SHOULD BE WHERE EVERYTHING IS DISPLAYED */}
+        {storyBeat && (
+          <div>
+            <h3>{storyBeat.header}</h3>
+            <p>{storyBeat.conext}</p>
+            <p>{storyBeat.option_a}</p>
+            <p>{storyBeat.option_b}</p>
+            <div>
+              <button onClick={() => handleChoice("A")}>A</button>
+              <button onClick={() => handleChoice("B")}>B</button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
