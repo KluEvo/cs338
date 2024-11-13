@@ -1,3 +1,5 @@
+const { text } = require("stream/consumers");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -6,7 +8,12 @@ module.exports = {
     "./src/**/Components/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        background: "bg-sky-900",
+        text: "#ffffff",
+      },
+    },
   },
   plugins: [],
 };

@@ -48,44 +48,49 @@ export const PromptForm = () => {
       setContext("");
       setCharacter("");
       setGoal("");
-
-      // getChars(prompt);
-      // getChars(character);
-      // getChars(goal);
     }
-
-    // else {
-    //   console.warn("One or more fields are empty.");
-    // }
   };
 
   return (
-    <section className="prompt">
-      <header className="App-header">
-        <h2>NuScript</h2>
+    <section className="">
+      <header className="App-header text-center mb-4">
+        <h2 className="text-3xl font-bold text-gray-800">NuScript</h2>
       </header>
-      <div className="prompt-container">
-        <form>
+      <div className=" max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+        <form className="space-y-4">
           <div>
             <label>
-              <h3>Prompt: </h3>
+              <h3 className="text-lg font-semibold text-gray-700">
+                Current Character Situation:
+              </h3>
             </label>
             <input
               type="text"
-              value={character || ""}
-              placeholder="Character Names"
+              value={character}
+              placeholder="Starting Point"
               onChange={(e) => setCharacter(e.target.value)}
+              className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
+            <label>
+              <h3 className="text-lg font-semibold text-gray-700">
+                Outcome of Story Arc:
+              </h3>
+            </label>
             <input
               type="text"
-              value={prompt || ""}
-              placeholder="End Goal"
-              onChange={(e) => setPrompt(e.target.value)}
+              value={goal}
+              placeholder="Ending point"
+              onChange={(e) => setGoal(e.target.value)}
+              className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <button type="button" onClick={handleGeneratePlot}>
+          <button
+            type="button"
+            onClick={handleGeneratePlot}
+            className="w-full mt-4 p-3 bg-sky-900	 text-white font-semibold rounded-md hover:bg-sky-900	 transition"
+          >
             <span>{buttonText}</span>
           </button>
         </form>
