@@ -38,7 +38,7 @@ def generate_story_choices(context, pstruct, ending_state):
     if context.strip():
         # print("waiting")
         time.sleep(1)
-        prompt = f"in a story that seeks to end up with {ending_state} and given the context of {context}, give me between one and two possible outcome options, 1~2 sentences each, for the plot structure {pstruct}. If there are 2 options of outcome, they should should be labeled (prepended with) A. and B. Give only the options."
+        prompt = f"in a story that seeks to end up with {ending_state} and given the context of {context}, give me between one and two possible outcome options, 1~2 sentences each, at the stage of only the {pstruct}. If there are 2 options of outcome, they should should be labeled (prepended with) A. and B. Give only the options."
         beat = call_llm_api(prompt)
         
         time.sleep(1)
@@ -80,9 +80,9 @@ def find_options(text):
 
 
 def main():
-    starting_state, ending_state = get_user_input()
-    # starting_state = "Jon and Amy are rivals"
-    # ending_state = "Jon and Amy start dating"
+    # starting_state, ending_state = get_user_input()
+    starting_state = "Jon and Amy are rivals"
+    ending_state = "Jon and Amy start dating"
     story_structure = identify_story_structure(starting_state, ending_state)
     print("Identified Story Structure:")
     # print(story_structure)
@@ -112,9 +112,9 @@ def main():
                 else:
                     print("not valid choice, defaulting to the first option.")
                     choice = options[0]
-                # beat = generate_story_beats(choice, context)
-                # print(beat)
-                beats.append(choice)
+                beat = generate_story_beats(choice, context)
+                print(beat)
+                beats.append(beat)
 
                 context = ""
             print(part)
