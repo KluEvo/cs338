@@ -42,11 +42,11 @@ def getType(line):
 beats = []
 options = []
 context = ""
-input("Enter the starting state of the character:")
-input("Enter the ending state of the character:")
+input("Enter the starting state of the character: ")
+input("Enter the ending state of the character: ")
 for line in lines:
     if getType(line) == "Heading":
-        input()
+        # input("")
         print(line)
                 
     elif getType(line) == "Context":
@@ -64,7 +64,7 @@ for line in lines:
             if choice.lower() == 'a' or choice.lower() == '1':
                 choice = options[0]
             elif choice.lower() == 'b' or choice.lower() == '2':
-                choice = options[1]
+                choice = line
             else:
                 print("not valid choice, defaulting to the first option.")
             beat = generate_story_beats(choice, context)
@@ -76,5 +76,5 @@ for line in lines:
         if not options:
             beat = generate_story_beats(context, context)
             beats.append(beat)
-
+input()
 print(beats)
