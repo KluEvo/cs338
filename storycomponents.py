@@ -18,11 +18,8 @@ def identify_story_component(line):
 
 # Example usage
 lines = [
-    "I. Introduction",
-    "* A common obstacle arises that requires collaboration between Jane and Amy.",
-    "a. Jane and Amy are on the verge of losing their scholarships.",
-    "1. Jane and Amy are on the verge of losing their scholarships",
-    "Some unrelated sentence without markers."
+    "A: Amy and John’s rivalry becomes public when they have a spat during an important event or meeting, causing their boss or friends to impose “team-building” exercises on them."
+    "B: Their friends, tired of the tension, decide to “help” by setting them up in situations that force them to see the other’s positive side (e.g., team dinners, happy hours, and casual “double dates”)."
 ]
 
 for line in lines:

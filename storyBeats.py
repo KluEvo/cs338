@@ -68,5 +68,8 @@ def main():
     # story_beats = generate_story_beats(story_structure)
     # export_beats_to_files(story_beats)
 
+    # write a function that detects whether it is heading, context, or outcome.
+
+
 if __name__ == "__main__":
     main()
