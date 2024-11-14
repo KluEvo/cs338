@@ -11,7 +11,6 @@ from google_search_api.google_search_api import GoogleSearchAPI
 
 
 # Load the English language model
-nlp = spacy.load("en_core_web_lg")
 
 
 

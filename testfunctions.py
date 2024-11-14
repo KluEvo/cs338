@@ -1,7 +1,7 @@
 from flask import Flask, Response, request, jsonify
 from flask_cors import CORS
 from storyBeats import get_user_input, identify_story_structure, generate_story_choices, find_options
-from namerecognition import extract_names
+# from namerecognition import extract_names
 import random
 import time
 
@@ -19,21 +19,7 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 
-
-@app.after_request
-def basic_authentication():
-    if request.method.lower() == 'options':
-        return Response()
-def add_header(response):
-    headers = {'Access-Control-Allow-Origin': '*',
-               'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-               'Access-Control-Allow-Headers': 'Content-Type'}
-    
-    if request.method.lower() == 'options':
-        return jsonify(headers), 200
-
-
-@app.route('/characters', methods=['POST'])
+@app.route('/entry', methods=['GET', 'POST'])
 def getUserPrompt():
     global starting_state
     global ending_state
@@ -41,14 +27,18 @@ def getUserPrompt():
     global context
     beats = []
     context = ""
-    starting_state, ending_state = get_user_input()
+    data = request.get_json()
+    starting_state = data['starting_state']
+    ending_state = data['ending_state']
+
     # starting_state = "Jon and Amy are rivals"
     # ending_state = "Jon and Amy start dating"
     story_structure = identify_story_structure(starting_state, ending_state)
     # print("Identified Story Structure:")
     # print(story_structure)
-    return story_structure.split('\n')
+    return [story_structure.split('\n')]
 
+@app.route('/characters2', methods=['GET', 'POST'])
 def handelText(txt):
     global context
     global heldInfo

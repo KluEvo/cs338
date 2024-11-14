@@ -9,22 +9,26 @@ export const PromptForm = () => {
   const [buttonText] = useState("Generate Plot");
 
   const handleGeneratePlot = async () => {
-    if (startState && endState) {
-      try {
-        const response = await axios.post("http://localhost:5000/characters", {
+    if (!(startState && endState)) {
+        
+        setStartState("Jon and Amy are rivals")
+        setEndState("Jon and Amy start dating")
+    }
+     
+    try {
+        const response = await axios.post("http://127.0.0.1:5000/entry", {
           starting_state: startState,
           ending_state: endState,
         });
-
-        setStoryBeat(response.data.structure);
+        console.log(response.data)
+        // setStoryBeat(response.data.structure);
       } catch (error) {
         console.error("Error generating plot structure: ", error);
       }
 
       setStartState("");
       setEndState("");
-    }
-  };
+};  
 
   const handleChoice = async (choice) => {
     try {
