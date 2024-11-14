@@ -38,7 +38,7 @@ def generate_story_choices(context, pstruct, ending_state):
     if context.strip():
         # print("waiting")
         time.sleep(1)
-        prompt = f"in a story that seeks to end up with {ending_state} and given the context of {context}, give me between one and two possible outcome options, 1~2 sentences each, at the stage of only the {pstruct}. If there are 2 options of outcome, they should should be labeled (prepended with) A. and B. Give only the options."
+        prompt = f"in a story that seeks to end up with {ending_state} and given the context of {context}, give me between one and two possible outcome options, 1~2 sentences each, at the stage of only the {pstruct}. the options should be labeled (pre-pended with just) A. and B. Give only the options."
         beat = call_llm_api(prompt)
         
         time.sleep(1)

@@ -10,8 +10,8 @@ function App() {
     const [startingState, setStartingState] = useState("");
     const [endingState, setEndingState] = useState("");
     const [showChoices, setShowChoices] = useState(false);
-    const [storyStruct, setStoryStruct] = useState(null);
-    var lineNum = 0;
+    const [storyStruct, setStoryStruct] = useState([]);
+    const [lineNum, setLineNum] = useState(0);
     var story = [];
     // localStorage.setItem("storybeat", JSON.stringify(storyBeat));
 
@@ -22,51 +22,58 @@ function App() {
         });
         story = (response.data.story_structure);
         localStorage.setItem("storyStruct", response.data.story_structure);
+        setStoryStruct(story)
 
-        setMessages([
-            ...messages,
-            { text: story[0], sender: "bot" },
-        ]);
         
         console.log(story);
-        if (story.length > lineNum){
-            lineNum ++;
-            handleGenerateChoices(lineNum);
+        if (story.length > 1){
+            handleGenerateChoices(1);
         } 
 
     };
 
     const handleGenerateChoices = async (num) => {
         
-        console.log(num)
+        console.log("curent line: ", num)
         console.log(story)
 
+        const romanNumeralRegex = /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/;
+
+        var lineslist = [story[num]];
+        num ++;
+        while (!romanNumeralRegex.test(story[num])){
+            lineslist.push(story[num]);
+            num++;
+        }
+        console.log(lineslist);
+        setLineNum(num);
         const response = await axios.post(
             "http://localhost:5001/text",
             {
-                txt: story[num],
+                txt: lineslist,
             }
         );
         var msg = response.data.outputTxt;
+        var choicesText = response.data.choices;
+
+        var msgArr = [...messages];
+        console.log(msg)
+        console.log(choicesText)
+
+        msg.forEach(element => {
+            msgArr.push({ text: element, sender: "bot" });
+        });
+        msgArr.push({ text: "Pick an outcome:", sender: "bot" });
+        msgArr.push({ text: choicesText[0], sender: "bot" });
+        msgArr.push({ text: choicesText[1], sender: "bot" });
+
         console.log("recieve")
-        setMessages([
-            ...messages,
-            { text: msg, sender: "bot" },
-        ]);
+        setMessages(msgArr);
 
         console.log(response.data)
 
+        setShowChoices(true);
 
-        if (response.data.choices){
-            setShowChoices(true);
-        } 
-        else {
-            setShowChoices(false);
-            if (story.length > num+1){
-                lineNum ++;
-                handleGenerateChoices(num+1);
-            } 
-        } 
 
 
     };
@@ -117,6 +124,7 @@ function App() {
     };
 
     const handleChoice = async (input) => {
+        story = storyStruct
         const response = await axios.post("http://localhost:5001/choices", {
             choice: input,
         });
@@ -127,7 +135,7 @@ function App() {
         ]);
 
         console.log(lineNum, story.length);
-        lineNum ++;
+        
         console.log(story);
         if (story.length > lineNum){
             handleGenerateChoices(lineNum);
@@ -148,6 +156,7 @@ function App() {
                         <button onClick={() => handleChoice("B")}>B</button>
                     </div>
                 )}
+                
             </div>
             <div className="chat-input">
                 <input

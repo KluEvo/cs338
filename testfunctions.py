@@ -10,7 +10,7 @@ ending_state = ""
 beats = []
 context = ""
 heldInfo = ""
-opts = ""
+opts = "" 
 
 
 app = Flask(__name__)
@@ -37,27 +37,44 @@ def handleText():
     global context
     global heldInfo
     global opts
+    
+    giveChoice = False
     # print(context)
     data = request.get_json()
-    part = data["txt"]
-    output = ""
-    giveChoice = False
+    lines = data["txt"]
+    output = []
+
+    for line in lines:
+        if line.strip():
+            part = line.strip()    
+            if part[0].lower() == '*' or part[0].lower() == '-' :
+                context += part + " "
+            output.append(part)
+    opts = generate_story_choices(context, heldInfo, ending_state)
+    ch = []
+    opts = opts.split('\n')
+    # print(opts)
+    for line in opts:
+        if line.strip():
+            part = line.strip()    
+            ch.append(part)
+    heldInfo = part
+    # print(ch)
+    opts = ch
+    return jsonify({
+        "outputTxt": output,
+        "choices": opts
+    })
+
+def handleLine():
+    global context
     if part.strip():
         part = part.strip()    
         if part[0].lower() == '*' or part[0].lower() == '-' :
             context += part + " "
             output = part
-        elif context != "":
-            print("HERE")
-            opts = generate_story_choices(context, heldInfo, ending_state)
-            output = opts
-            heldInfo = part
-            giveChoice = True
+    return output
 
-    return jsonify({
-        "outputTxt": output,
-        "choices": giveChoice
-    })
 
 @app.route('/choices', methods=['POST'])
 def handleChoices():
@@ -70,10 +87,10 @@ def handleChoices():
 
     data = request.get_json()
     choice = data['choice']
-    print(choice)
 
     # print(opts)
-    options = find_options(opts)
+    options = opts
+    print(options)
     # choice = input("How do you want this to play out? ")
     if choice.lower() == 'a':
         choice = options[0]
@@ -82,7 +99,7 @@ def handleChoices():
     else:
         print("not valid choice, defaulting to the first option.")
         choice = options[0]
-    
+    print(choice)
     beat = generate_story_beats(choice, context)
     beats.append(beat)
 
