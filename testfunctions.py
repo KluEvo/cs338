@@ -10,7 +10,6 @@ ending_state = ""
 beats = []
 context = ""
 heldInfo = ""
-heldInfoOld = ""
 opts = ""
 
 
@@ -19,7 +18,7 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 
-@app.route('/entry', methods=['GET', 'POST'])
+@app.route('/entry', methods=['POST'])
 def getUserPrompt():
     global starting_state
     global ending_state
@@ -36,10 +35,10 @@ def getUserPrompt():
     story_structure = identify_story_structure(starting_state, ending_state)
     # print("Identified Story Structure:")
     # print(story_structure)
-    return [story_structure.split('\n')]
+    return story_structure.split('\n')
 
-@app.route('/characters2', methods=['GET', 'POST'])
-def handelText(txt):
+@app.route('/text', methods=['POST'])
+def handleText(txt):
     global context
     global heldInfo
     global opts
@@ -62,10 +61,11 @@ def handelText(txt):
         "choices": giveChoice
     }
 
+@app.route('/choices', methods=['POST'])
 def handleChoices(choice):
     global ending_state
     global beats
-    global heldInfoOld
+    global heldInfo
     global opts
 
     # print(opts)
@@ -80,7 +80,10 @@ def handleChoices(choice):
         choice = options[0]
     context = ""
     beats.append(choice)
-    return choice
+    return {
+        "choice":choice,
+        "otherprint": heldInfo
+    }
 
 if __name__ == '__main__':
     app.run(debug=True) 
