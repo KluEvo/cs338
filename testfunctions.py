@@ -54,10 +54,10 @@ def handleText():
             heldInfo = part
             giveChoice = True
 
-    return {
+    return jsonify({
         "outputTxt": output,
         "choices": giveChoice
-    }
+    })
 
 @app.route('/choices', methods=['POST'])
 def handleChoices():
@@ -65,6 +65,7 @@ def handleChoices():
     global beats
     global heldInfo
     global opts
+    global context
 
 
     data = request.get_json()
@@ -87,7 +88,7 @@ def handleChoices():
 
     context = ""
     return jsonify({
-        "choice":choice,
+        "result":beat,
         "otherprint": heldInfo
     })
 
