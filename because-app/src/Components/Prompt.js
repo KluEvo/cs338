@@ -15,12 +15,12 @@ export const PromptForm = () => {
         }
 
         try {
-            const response = await axios.post("http://localhost:5000/entry", {
+            const response = await axios.post("http://localhost:5001/entry", {
                 starting_state: startState,
                 ending_state: endState,
             });
-            console.log(response.data);
             setStoryBeat(response.data);
+            console.log(storyBeat);
         } catch (error) {
             console.error("Error generating plot structure: ", error);
         }
@@ -31,12 +31,9 @@ export const PromptForm = () => {
 
     const handleChoice = async (choice) => {
         try {
-            const response = await axios.post(
-                "http://localhost:5000/choices",
-                {
-                    choice,
-                }
-            );
+            const response = await axios.post("http://localhost:5001/choices", {
+                choice,
+            });
 
             //AS I HAVE IT NOW THIS HAS TO BE GIVE AS A JSON FILE.
 

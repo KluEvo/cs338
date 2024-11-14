@@ -11,11 +11,5 @@ function App() {
   );
 }
 
-// will be needed later to allow for multi-generation history
-function appendToStorage(name, data) {
-  var old = localStorage.getItem(name);
-  if (old === null) old = "";
-  localStorage.setItem(name, old + data);
-}
 
 export default App;
