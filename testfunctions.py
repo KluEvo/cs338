@@ -8,6 +8,7 @@ import time
 starting_state = ""
 ending_state = ""
 beats = []
+storyStruct = ""
 context = ""
 heldInfo = ""
 opts = "" 
@@ -23,6 +24,7 @@ def getUserPrompt():
     global starting_state
     global ending_state
     global beats
+    global storyStruct
     global context
     beats = []
     context = ""
@@ -30,6 +32,8 @@ def getUserPrompt():
     starting_state = data['starting_state']
     ending_state = data['ending_state']
     story_structure = identify_story_structure(starting_state, ending_state)
+    print("Flask python code Story Structure: ", story_structure)
+    storyStruct = story_structure
     return jsonify({'story_structure': story_structure.split('\n')})
 
 @app.route('/text', methods=['POST'])
@@ -44,21 +48,27 @@ def handleText():
     lines = data["txt"]
     output = []
 
+    
+    print("this is lines: ", lines)
     for line in lines:
         if line.strip():
             part = line.strip()    
+            print("this is part: ", part)
             if part[0].lower() == '*' or part[0].lower() == '-' :
                 context += part + " "
             output.append(part)
+ 
+    print("this is the pstruct going into generate story choices: ", heldInfo)
     opts = generate_story_choices(context, heldInfo, ending_state)
     ch = []
     opts = opts.split('\n')
-    # print(opts)
+    print("this is opts: ", opts)
     for line in opts:
         if line.strip():
             part = line.strip()    
             ch.append(part)
     heldInfo = part
+    print("this is the pstruct after: ", heldInfo)
     # print(ch)
     opts = ch
     return jsonify({
