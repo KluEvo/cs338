@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import "./App.css";
-import { PromptForm } from "./Components/Prompt";
-// import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [messages, setMessages] = useState([
@@ -177,10 +176,47 @@ function App() {
   };
 
   return (
-    <div className="bg-sky-900 h-screen content-center">
-      <PromptForm />
+    <div className="chat-container">
+      <div className="chat-messages">
+        {messages.map((msg, index) => (
+          <div key={index} className={`message ${msg.sender}`}>
+            {msg.text}
+          </div>
+        ))}
+        {showChoices && (
+          <div className="choices">
+            <button onClick={() => handleChoice("A")}>A</button>
+            <button onClick={() => handleChoice("B")}>B</button>
+          </div>
+        )}
+      </div>
+      <div className="chat-input">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type a message..."
+          onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+        />
+        <button onClick={handleSendMessage}>Send</button>
+      </div>
     </div>
   );
 }
 
 export default App;
+
+// import React from "react";
+// import "./App.css";
+// import { PromptForm } from "./Components/Prompt";
+// // import "bootstrap/dist/css/bootstrap.min.css";
+
+// function App() {
+//   return (
+//     <div className="bg-sky-900 h-screen content-center">
+//       <PromptForm />
+//     </div>
+//   );
+// }
+
+// export default App;

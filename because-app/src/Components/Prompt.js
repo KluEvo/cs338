@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import "../App.css";
-import { Conversation } from "./Conversation";
 import axios from "axios";
 
 export const PromptForm = () => {
-  const [startState, setStartState] = useState("Jon and Amy are rivals");
-  const [endState, setEndState] = useState("Jon and Amy start dating");
+  const [startState, setStartState] = useState("");
+  const [endState, setEndState] = useState("");
   const [storyBeat, setStoryBeat] = useState(null);
   const [buttonText] = useState("Generate Plot");
 
@@ -97,10 +96,8 @@ export const PromptForm = () => {
             <p>{storyBeat.option_a}</p>
             <p>{storyBeat.option_b}</p>
             <div>
-              
-            <Conversation />
-              {/* <button onClick={() => handleChoice("A")}>A</button>
-              <button onClick={() => handleChoice("B")}>B</button> */}
+              <button onClick={() => handleChoice("A")}>A</button>
+              <button onClick={() => handleChoice("B")}>B</button>
             </div>
           </div>
         )}
