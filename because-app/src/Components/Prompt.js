@@ -31,18 +31,7 @@ export const PromptForm = () => {
     setEndState("");
   };
 
-  const handleChoice = async (choice) => {
-    try {
-      const response = await axios.post("http://localhost:5001/choices", {
-        choice,
-      });
 
-
-      setStoryBeat(response.data);
-    } catch (error) {
-      console.error("Error continuing story: ", error);
-    }
-  };
 
   return (
     <section className="">

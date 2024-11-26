@@ -6,9 +6,8 @@ var msgArr = [];
 
 export const Conversation = (startingState, endingState) => {
     const [messages, setMessages] = useState([
-        { text: "Please enter a starting point:", sender: "bot" },
+        { text: "Processing", sender: "bot" },
     ]);
-    const [input, setInput] = useState("");
     const [showChoices, setShowChoices] = useState(false);
     const [storyStruct, setStoryStruct] = useState([]);
     const [lineNum, setLineNum] = useState(0);
