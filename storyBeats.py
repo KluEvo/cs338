@@ -31,16 +31,17 @@ def get_user_input():
     return starting_state, ending_state
 
 def identify_story_structure(starting_state, ending_state):
-    prompt = f"Identify and give a very simplified generic story structure in bullets that results ends with '{ending_state}', given the context that '{starting_state}'. Format the output with headings (example: I. Introduction) describing the plot structure and for each heading, give a vague description."
+    prompt = f"Identify and give a very simplified generic story structure in bullets that results ends with '{ending_state}', given the context that '{starting_state}'. Format the output with headings (example: I. Introduction) describing the plot structure. each description should be labeled (pre-pended with just) '-' "
     return call_llm_api(prompt)
 
 def generate_story_choices(context, pstruct, ending_state):
     if context.strip():
         # print("waiting")
         time.sleep(1)
-        prompt = f"in a story that seeks to end up with {ending_state} and given the context of {context}, give me between one and two possible outcome options, 1~2 sentences each, at the stage of only the {pstruct}. If there are 2 options of outcome, they should should be labeled (prepended with) A. and B. Give only the options."
+        prompt = f"in a story that seeks to end up with {ending_state} and given the context of {context}, give me between one and two possible outcome options, 1~2 sentences each. the options should develop the plot in different ways and should make sense with the both context given and the all the subsequent descriptions of the headings in {pstruct}. the options should be labeled (pre-pended with just) A. and B. Give only the options."
         beat = call_llm_api(prompt)
         
+        # , at the stage of only the {pstruct}
         time.sleep(1)
         return beat
 

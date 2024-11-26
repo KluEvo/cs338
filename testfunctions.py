@@ -8,9 +8,10 @@ import time
 starting_state = ""
 ending_state = ""
 beats = []
+storyStruct = ""
 context = ""
 heldInfo = ""
-opts = ""
+opts = "" 
 
 
 app = Flask(__name__)
@@ -23,55 +24,83 @@ def getUserPrompt():
     global starting_state
     global ending_state
     global beats
+    global storyStruct
     global context
     beats = []
     context = ""
     data = request.get_json()
     starting_state = data['starting_state']
     ending_state = data['ending_state']
-
-    # starting_state = "Jon and Amy are rivals"
-    # ending_state = "Jon and Amy start dating"
     story_structure = identify_story_structure(starting_state, ending_state)
-    # print("Identified Story Structure:")
-    # print(story_structure)
-    return story_structure.split('\n')
+    print("Flask python code Story Structure: ", story_structure)
+    storyStruct = story_structure
+    return jsonify({'story_structure': story_structure.split('\n')})
 
 @app.route('/text', methods=['POST'])
 def handleText():
     global context
     global heldInfo
     global opts
-
-    data = request.get_json()
-    part = data['txt']
-    output = ""
+    
     giveChoice = False
+    # print(context)
+    data = request.get_json()
+    lines = data["txt"]
+    output = []
+
+    
+    print("this is lines: ", lines)
+    for line in lines:
+        if line.strip():
+            part = line.strip()    
+            print("this is part: ", part)
+            if part[0].lower() == '*' or part[0].lower() == '-' :
+                context += part + " "
+            output.append(part)
+ 
+    print("this is the pstruct going into generate story choices: ", heldInfo)
+    opts = generate_story_choices(context, heldInfo, ending_state)
+    ch = []
+    opts = opts.split('\n')
+    print("this is opts: ", opts)
+    for line in opts:
+        if line.strip():
+            part = line.strip()    
+            ch.append(part)
+    heldInfo = part
+    print("this is the pstruct after: ", heldInfo)
+    # print(ch)
+    opts = ch
+    return jsonify({
+        "outputTxt": output,
+        "choices": opts
+    })
+
+def handleLine():
+    global context
     if part.strip():
         part = part.strip()    
         if part[0].lower() == '*' or part[0].lower() == '-' :
             context += part + " "
             output = part
-        elif context != "":
-            opts = generate_story_choices(context, heldInfo, ending_state)
-            output = opts
-            heldInfo = part
-            giveChoice = True
+    return output
 
-    return {
-        "outputTxt": output,
-        "choices": giveChoice
-    }
 
 @app.route('/choices', methods=['POST'])
-def handleChoices(choice):
+def handleChoices():
     global ending_state
     global beats
     global heldInfo
     global opts
+    global context
+
+
+    data = request.get_json()
+    choice = data['choice']
 
     # print(opts)
-    options = find_options(opts)
+    options = opts
+    print(options)
     # choice = input("How do you want this to play out? ")
     if choice.lower() == 'a':
         choice = options[0]
@@ -80,12 +109,19 @@ def handleChoices(choice):
     else:
         print("not valid choice, defaulting to the first option.")
         choice = options[0]
+    print(choice)
+    beat = generate_story_beats(choice, context)
+    beats.append(beat)
+
     context = ""
-    beats.append(choice)
-    return {
-        "choice":choice,
+    return jsonify({
+        "result":beat,
         "otherprint": heldInfo
-    }
+    })
+
+
+
+
 
 @app.route('/start', methods=['POST'])
 def start():
@@ -93,7 +129,7 @@ def start():
     starting_state = data.get('starting_state')
     ending_state = data.get('ending_state')
     story_structure = identify_story_structure(starting_state, ending_state)
-    return jsonify({'story_structure': story_structure})
+    return jsonify({'story_structure': story_structure.split('\n')})
 
 @app.route('/generate_choices', methods=['POST'])
 def generate_choices():
