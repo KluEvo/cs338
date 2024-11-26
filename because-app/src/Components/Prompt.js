@@ -37,7 +37,6 @@ export const PromptForm = () => {
         choice,
       });
 
-      //AS I HAVE IT NOW THIS HAS TO BE GIVE AS A JSON FILE.
 
       setStoryBeat(response.data);
     } catch (error) {
