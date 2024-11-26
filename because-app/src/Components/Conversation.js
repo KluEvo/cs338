@@ -12,6 +12,7 @@ export const Conversation = (startingState, endingState) => {
     const [storyStruct, setStoryStruct] = useState([]);
     const [lineNum, setLineNum] = useState(0);
     var story = [];
+    console.log(startingState, endingState)
     const handleStart = async (startingState, endingState) => {
         const response = await axios.post("http://localhost:5001/entry", {
             starting_state: startingState,

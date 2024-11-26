@@ -27,23 +27,8 @@ export const PromptForm = () => {
       console.error("Error generating plot structure: ", error);
     }
 
-    setStartState("");
-    setEndState("");
   };
 
-  const handleChoice = async (choice) => {
-    try {
-      const response = await axios.post("http://localhost:5001/choices", {
-        choice,
-      });
-
-      //AS I HAVE IT NOW THIS HAS TO BE GIVE AS A JSON FILE.
-
-      setStoryBeat(response.data);
-    } catch (error) {
-      console.error("Error continuing story: ", error);
-    }
-  };
 
   return (
     <section className="">
@@ -92,16 +77,10 @@ export const PromptForm = () => {
         {/* THIS SHOULD BE WHERE EVERYTHING IS DISPLAYED */}
         {storyBeat && (
           <div>
-            <h3>{storyBeat.header}</h3>
-            <p>{storyBeat.conext}</p>
-            <p>{storyBeat.option_a}</p>
-            <p>{storyBeat.option_b}</p>
-            <div>
               
-            <Conversation startingState={startState} endingState={startState}/>
+            <Conversation startingState={startState} endingState={endState}/>
               {/* <button onClick={() => handleChoice("A")}>A</button>
               <button onClick={() => handleChoice("B")}>B</button> */}
-            </div>
           </div>
         )}
       </div>
