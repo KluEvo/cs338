@@ -40,7 +40,7 @@ function App() {
 
     var lineslist = [story[num]];
     num++;
-    while (!romanNumeralRegex.test(story[num])) {
+    while (num < story.length && !romanNumeralRegex.test(story[num])) {
       lineslist.push(story[num]);
       num++;
     }
