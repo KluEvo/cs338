@@ -5,6 +5,7 @@ import "./Conversation.css";
 var msgArr = [];
 var lineNum = 0;
 var showChoices = false;
+var summary = "";
 
 export const Conversation = (startingState, endingState) => {
     const [messages, setMessages] = useState([
@@ -109,6 +110,7 @@ export const Conversation = (startingState, endingState) => {
         const response = await axios.post("http://localhost:5001/choices", {
             choice: input,
         });
+        summary += response.data.result;
 
         msgArr.push({ text: response.data.result, sender: "bot" });
         // msgArr.push({ text: "", sender: "bot" });
@@ -119,7 +121,20 @@ export const Conversation = (startingState, endingState) => {
         if (story.length > lineNum) {
             handleGenerateChoices(lineNum);
         }
+        else{
+            console.log("EOL")
+            getSummary(summary);
+        }
     };
+
+    const getSummary = async (input) => {
+        showChoices = false;
+        console.log("done");
+        msgArr.push({ text: "Summary:", sender: "bot" });
+        msgArr.push({ text: input, sender: "bot" });
+        setMessages(msgArr);
+        console.log(messages);
+    }
     useEffect(() => {
         handleStart(startingState, endingState);
       }, []);
@@ -133,7 +148,10 @@ export const Conversation = (startingState, endingState) => {
                 ))}
                 {showChoices && (
                     <div className="choices">
-                        <button onClick={() => handleChoice("A")}>A</button>
+                        <button onClick={() => 
+                            {
+                                console.log("A pressed");
+                                handleChoice("A");}}>A</button>
                         <button onClick={() => handleChoice("B")}>B</button>
                     </div>
                 )}
