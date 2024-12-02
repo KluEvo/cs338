@@ -5,7 +5,7 @@ import { PromptForm } from "./Components/Prompt";
 
 function App() {
   return (
-    <div className="bg-sky-900 h-screen content-center">
+    <div className="bg-sky-900 min-h-screen max-h-full content-center">
       <PromptForm />
     </div>
   );
