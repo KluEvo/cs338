@@ -3,14 +3,15 @@ import axios from "axios";
 import "./Conversation.css";
 
 var msgArr = [];
+var lineNum = 0;
+var showChoices = false;
 
 export const Conversation = (startingState, endingState) => {
     const [messages, setMessages] = useState([
         { text: "Processing", sender: "bot" },
     ]);
-    const [showChoices, setShowChoices] = useState(false);
     const [storyStruct, setStoryStruct] = useState([]);
-    const [lineNum, setLineNum] = useState(0);
+    // const [lineNum, setLineNum] = useState(0);
     var story = [];
     console.log(startingState, endingState)
     const handleStart = async (startingState, endingState) => {
@@ -37,13 +38,18 @@ export const Conversation = (startingState, endingState) => {
 
         var lineslist = [story[num]];
         num++;
-        while (!romanNumeralRegex.test(story[num])) {
+        while ((num < story.length) && !romanNumeralRegex.test(story[num])) {
             lineslist.push(story[num]);
             num++;
         }
+        if (num >= story.length){
+            showChoices = false;
+            console.log(showChoices);
+        }
+        
         // lineslist.push(story[num]);
         console.log("This is line list in handleGenerateChoices: ", lineslist);
-        setLineNum(num);
+        lineNum = num;
         const response = await axios.post("http://localhost:5001/text", {
             txt: lineslist,
         });
@@ -94,7 +100,7 @@ export const Conversation = (startingState, endingState) => {
 
         // console.log(response.data)
 
-        setShowChoices(true);
+        showChoices = true;
     };
 
 
@@ -108,6 +114,7 @@ export const Conversation = (startingState, endingState) => {
         // msgArr.push({ text: "", sender: "bot" });
         setMessages(msgArr);
         console.log("this is messages: ", messages);
+        console.log("this is story: ", story);
 
         if (story.length > lineNum) {
             handleGenerateChoices(lineNum);
