@@ -44,7 +44,7 @@ export const PromptForm = () => {
             <input
               type="text"
               value={startState}
-              placeholder="John and Amy are rivals"
+              placeholder="EX: John and Amy are rivals"
               onChange={(e) => setStartState(e.target.value)}
               className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -58,7 +58,7 @@ export const PromptForm = () => {
             <input
               type="text"
               value={endState}
-              placeholder="John and Amy start dating"
+              placeholder="EX: John and Amy start dating"
               onChange={(e) => setEndState(e.target.value)}
               className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
