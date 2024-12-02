@@ -4,8 +4,8 @@ import { Conversation } from "./Conversation";
 import axios from "axios";
 
 export const PromptForm = () => {
-  const [startState, setStartState] = useState("Jon and Amy are rivals");
-  const [endState, setEndState] = useState("Jon and Amy start dating");
+  const [startState, setStartState] = useState("");
+  const [endState, setEndState] = useState("");
   const [storyBeat, setStoryBeat] = useState(null);
   const [buttonText] = useState("Generate Plot");
 
@@ -26,16 +26,14 @@ export const PromptForm = () => {
     } catch (error) {
       console.error("Error generating plot structure: ", error);
     }
-
   };
-
 
   return (
     <section className="">
       <header className="App-header text-center mb-4">
         <h2 className="text-3xl font-bold text-gray-800">NuScript</h2>
       </header>
-      <div className=" max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+      <div className=" max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <form className="space-y-4">
           <div>
             <label>
@@ -46,7 +44,7 @@ export const PromptForm = () => {
             <input
               type="text"
               value={startState}
-              placeholder="Starting Point"
+              placeholder="EX: John and Amy are rivals"
               onChange={(e) => setStartState(e.target.value)}
               className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -60,7 +58,7 @@ export const PromptForm = () => {
             <input
               type="text"
               value={endState}
-              placeholder="Ending point"
+              placeholder="EX: John and Amy start dating"
               onChange={(e) => setEndState(e.target.value)}
               className="w-full mt-2 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -77,9 +75,8 @@ export const PromptForm = () => {
         {/* THIS SHOULD BE WHERE EVERYTHING IS DISPLAYED */}
         {storyBeat && (
           <div>
-              
-            <Conversation startingState={startState} endingState={endState}/>
-              {/* <button onClick={() => handleChoice("A")}>A</button>
+            <Conversation startingState={startState} endingState={endState} />
+            {/* <button onClick={() => handleChoice("A")}>A</button>
               <button onClick={() => handleChoice("B")}>B</button> */}
           </div>
         )}
