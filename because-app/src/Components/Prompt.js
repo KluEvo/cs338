@@ -66,7 +66,7 @@ export const PromptForm = () => {
           <button
             type="button"
             onClick={handleGeneratePlot}
-            className="w-full mt-4 ml-0 p-3 bg-sky-900 text-white font-semibold rounded-md hover:bg-sky-900	 transition"
+            className="w-full mt-4 ml-0 p-3 bg-sky-900 text-gray-100 font-semibold rounded-md hover:bg-sky-900	 transition"
           >
             <span>{buttonText}</span>
           </button>
