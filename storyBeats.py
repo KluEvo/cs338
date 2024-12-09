@@ -31,7 +31,7 @@ def get_user_input():
     return starting_state, ending_state
 
 def identify_story_structure(starting_state, ending_state):
-    prompt = f"Identify and give a very simplified generic 6 part story structure in bullets that results ends with '{ending_state}', given the context that '{starting_state}'. Start with introduction and end with resolution. Format the output with headings (example: I. Introduction) describing the plot structure. each description should be labeled (pre-pended with just) '-' "
+    prompt = f"Identify and give a very simplified generic five part story structure in bullets that results ends with '{ending_state}', given the context that '{starting_state}'. Start with inciding incident and end with resolution. Format the output with headings (example: I. Inciding Incident) describing the plot structure. each description should be labeled (pre-pended with just) '-' "
     return call_llm_api(prompt)
 
 def generate_story_choices(context, pstruct, ending_state):
