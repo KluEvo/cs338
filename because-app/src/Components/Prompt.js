@@ -11,21 +11,20 @@ export const PromptForm = () => {
 
   const handleGeneratePlot = async () => {
     if (!(startState && endState)) {
-      setStartState("Jon and Amy are rivals");
-      setEndState("Jon and Amy start dating");
+      setStartState("John and Amy are rivals");
+      setEndState("John and Amy start dating");
     }
+    setStoryBeat("data");
 
-    try {
-      const response = await axios.post("http://localhost:5001/entry", {
-        starting_state: startState,
-        ending_state: endState,
-      });
-      setStoryBeat(response.data);
-      localStorage.setItem("storybeat", JSON.stringify(storyBeat));
-      console.log(storyBeat);
-    } catch (error) {
-      console.error("Error generating plot structure: ", error);
-    }
+    // try {
+    //   const response = await axios.post("http://localhost:5001/entry", {
+    //     starting_state: startState,
+    //     ending_state: endState,
+    //   });
+    //   localStorage.setItem("storybeat", JSON.stringify(storyBeat));
+    // } catch (error) {
+    //   console.error("Error generating plot structure: ", error);
+    // }
   };
 
   return (

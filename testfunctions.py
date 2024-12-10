@@ -49,16 +49,18 @@ def handleText():
     output = []
 
     
-    print("this is lines: ", lines)
+    # print("this is lines: ", lines)
     for line in lines:
         if line.strip():
             part = line.strip()    
             print("this is part: ", part)
             if part[0].lower() == '*' or part[0].lower() == '-' :
                 context += part + " "
+            else:    
+                heldInfo = part
             output.append(part)
  
-    print("this is the pstruct going into generate story choices: ", heldInfo)
+    print("heldInfo:", heldInfo)
     opts = generate_story_choices(context, heldInfo, ending_state)
     ch = []
     opts = opts.split('\n')
@@ -67,8 +69,7 @@ def handleText():
         if line.strip():
             part = line.strip()    
             ch.append(part)
-    heldInfo = part
-    print("this is the pstruct after: ", heldInfo)
+    # print("this is the pstruct after: ", heldInfo)
     # print(ch)
     opts = ch
     return jsonify({
@@ -109,9 +110,13 @@ def handleChoices():
     else:
         print("not valid choice, defaulting to the first option.")
         choice = options[0]
+    choice = choice[1:]
     print(choice)
+    print("heldInfo Choices:", heldInfo)
     beat = generate_story_beats(choice, context)
-    beats.append(beat)
+    if beat:
+        beat = beat.strip('"')
+    beats.append(beat + " ")
 
     context = ""
     return jsonify({
@@ -120,34 +125,6 @@ def handleChoices():
     })
 
 
-
-
-
-@app.route('/start', methods=['POST'])
-def start():
-    data = request.json
-    starting_state = data.get('starting_state')
-    ending_state = data.get('ending_state')
-    story_structure = identify_story_structure(starting_state, ending_state)
-    return jsonify({'story_structure': story_structure.split('\n')})
-
-@app.route('/generate_choices', methods=['POST'])
-def generate_choices():
-    data = request.json
-    context = data.get('context')
-    part = data.get('part')
-    ending_state = data.get('ending_state')
-    opts = generate_story_choices(context, part, ending_state)
-    options = find_options(opts)
-    return jsonify({'options': options})
-
-@app.route('/generate_beats', methods=['POST'])
-def generate_beats():
-    data = request.json
-    choice = data.get('choice')
-    context = data.get('context')
-    beat = generate_story_beats(choice, context)
-    return jsonify({'beat': beat})
 
 if __name__ == '__main__':
     port_number = 5001
