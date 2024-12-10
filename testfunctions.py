@@ -55,6 +55,7 @@ def handleText():
             part = line.strip()    
             print("this is part: ", part)
             if part[0].lower() == '*' or part[0].lower() == '-' :
+                part = part[1:]
                 context += part + " "
             else:    
                 heldInfo = part
@@ -76,15 +77,6 @@ def handleText():
         "outputTxt": output,
         "choices": opts
     })
-
-def handleLine():
-    global context
-    if part.strip():
-        part = part.strip()    
-        if part[0].lower() == '*' or part[0].lower() == '-' :
-            context += part + " "
-            output = part
-    return output
 
 
 @app.route('/choices', methods=['POST'])

@@ -37,7 +37,7 @@ def identify_story_structure(starting_state, ending_state):
 def generate_story_choices(context, pstruct, ending_state):
     if context.strip():
         time.sleep(1)
-        prompt = f"in a story that seeks to end up with {ending_state} and given the context of {context}, give me between two possible outcome options, 1~2 short sentences each. the options should develop the plot in different ways and should make sense with the both this context and given that this just for the {pstruct} story structure, do not resolve any conflicts before we reach the conclusion/resolution story structure. The options should be labeled (pre-pended with just) A. and B. Give only the options."
+        prompt = f"in a story that seeks to end up with {ending_state} and given the context of {context}, give me between two possible outcome options, 1~2 short sentences each. the options should develop the plot in different ways and should make sense with the both this context and given that this just for the {pstruct} story structure, do not resolve any conflicts before we reach the conclusion/resolution story structure. The options should be labeled (and only pre-pended with) A. and B., respectively. Give only the options."
         beat = call_llm_api(prompt)
         time.sleep(1)
         return beat

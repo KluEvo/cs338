@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../App.css";
 import { Conversation } from "./Conversation";
-import axios from "axios";
 
 export const PromptForm = () => {
   const [startState, setStartState] = useState("");
@@ -16,15 +15,6 @@ export const PromptForm = () => {
     }
     setStoryBeat("data");
 
-    // try {
-    //   const response = await axios.post("http://localhost:5001/entry", {
-    //     starting_state: startState,
-    //     ending_state: endState,
-    //   });
-    //   localStorage.setItem("storybeat", JSON.stringify(storyBeat));
-    // } catch (error) {
-    //   console.error("Error generating plot structure: ", error);
-    // }
   };
 
   return (

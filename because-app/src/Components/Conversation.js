@@ -62,7 +62,7 @@ export const Conversation = (startingState, endingState) => {
             if (romannumeralRegex.test(element)) {
                 msgArr.push({ text: element, sender: "bot" });
             } else {
-                contextMessage += element.replace(/[-*]/g, "").trim() + " ";
+                contextMessage += element.trim() + " ";
             }
         });
 
